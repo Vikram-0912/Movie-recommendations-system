@@ -249,9 +249,17 @@ def fetch_poster(movie_id):
     return "https://via.placeholder.com/500x750?text=No+Image"
 
 
+import os
+import pickle
 
-# Load the DataFrame and similarity matrix
-movies = pickle.load(open('movie.pkl', 'rb'))
+# Get the folder where app.py is located
+BASE_DIR = os.path.dirname(__file__)
+movie_path = os.path.join(BASE_DIR, 'movie.pkl')
+
+# Load the pickle file
+with open(movie_path, 'rb') as f:
+    movies = pickle.load(f)
+
 # similarity = pickle.load(open('similarity.pkl', 'rb'))
 url = "https://drive.google.com/uc?id=1g40pNLMXVbNy97ZkLrtvB0JMXSTE-gSg"
 output = "similarity.pkl"
@@ -297,6 +305,7 @@ if st.button('Show Recommend'):
     for col, name, poster in zip(cols, names, posters):
         col.markdown(f"<p class='card-title'>{name}</p>", unsafe_allow_html=True)
         col.image(poster)
+
 
 
 
